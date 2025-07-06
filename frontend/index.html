@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$INCL Finance - Web3 Financial Inclusion</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #17a2b8;
+            --accent-color: #ffc107;
+            --dark-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 1200px;
+            overflow: hidden;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .step-header {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #34495e 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .step-content {
+            padding: 2rem;
+        }
+        
+        .step-number {
+            background: var(--accent-color);
+            color: var(--dark-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #20c997 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-secondary-custom {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #6f42c1 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .status-connected {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .status-disconnected {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+        
+        .balance-display {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .balance-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .help-icon {
+            cursor: pointer;
+            color: var(--secondary-color);
+            margin-left: 10px;
+        }
+        
+        .help-icon:hover {
+            color: var(--primary-color);
+        }
+        
+        .loading-spinner {
+            display: none;
+            margin: 0 auto;
+        }
+        
+        .transaction-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .transaction-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .progress-bar-custom {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header-section {
+                padding: 1.5rem;
+            }
+            
+            .step-content {
+                padding: 1.5rem;
+            }
+            
+            .balance-amount {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Demo Warning Banner -->
+    <div class="demo-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>DEMO ONLY:</strong> This is a test application using testnet tokens. No real money involved.
+    </div>
+
+    <div class="container-fluid">
+        <div class="main-container">
+            <!-- Header Section -->
+            <div class="header-section">
+                <h1 class="mb-3">
+                    <!-- <i class="fas fa-coins me-3"></i>
+                    $INCL Finance -->
+                    <img src="./inclusive-mark.png" alt="" srcset="" class="img-fluid" style="max-width: 40%;">
+                </h1>
+                <p class="lead mb-0">Web3 Financial Inclusion Platform for Nigeria</p>
+                <p class="mb-0">Access banking services without traditional bank accounts</p>
+            </div>
+
+            <div class="container-fluid p-4">
+                <!-- Step 1: Wallet Connection -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number">1</div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Connect Your Wallet</h4>
+                                <small>Start by connecting your MetaMask wallet</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-wallet fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Click to learn about wallet connection"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div id="wallet-status" class="mb-3">
+                                    <span class="status-badge status-disconnected" id="connection-status">
+                                        <i class="fas fa-times-circle me-2"></i>Not Connected
+                                    </span>
+                                </div>
+                                <div id="wallet-info" style="display: none;">
+                                    <p><strong>Address:</strong> <span id="wallet-address" class="text-monospace"></span></p>
+                                    <div class="balance-display">
+                                        <div class="balance-amount" id="incl-balance">0.00 $INCL</div>
+                                        <small class="text-muted">Your $INCL Token Balance</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button id="connect-wallet" class="btn btn-primary-custom btn-lg">
+                                    <i class="fas fa-plug me-2"></i>Connect Wallet
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Get Test Tokens -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number">2</div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Get Test Tokens</h4>
+                                <small>Claim free $INCL tokens every hour</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-faucet fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Free tokens for testing the platform"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div id="faucet-info">
+                                    <p class="mb-2">
+                                        <strong>Claim Amount:</strong> 100 $INCL tokens
+                                        <br>
+                                        <strong>Cooldown:</strong> 1 hour between claims
+                                    </p>
+                                    <div id="faucet-timer" class="mb-3" style="display: none;">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-clock me-2"></i>
+                                            Next claim available in: <span id="countdown-timer"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button id="claim-tokens" class="btn btn-primary-custom btn-lg" disabled>
+                                    <i class="fas fa-gift me-2"></i>Claim Tokens
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Send Payment -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number">3</div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Send Payment</h4>
+                                <small>Transfer $INCL tokens to any wallet address</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-paper-plane fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Send money instantly to anyone with a wallet"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="recipient-address" class="form-label">
+                                        <strong>Recipient Address</strong>
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-address" 
+                                           placeholder="0x..." style="border-radius: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="send-amount" class="form-label">
+                                        <strong>Amount ($INCL)</strong>
+                                    </label>
+                                    <input type="number" class="form-control" id="send-amount" 
+                                           placeholder="0.00" min="0" step="0.01" style="border-radius: 10px;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center justify-content-center h-100">
+                                    <button id="send-payment" class="btn btn-secondary-custom btn-lg" disabled>
+                                        <i class="fas fa-arrow-right me-2"></i>Send Payment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Earn Yield -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number">4</div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Earn Yield</h4>
+                                <small>Stake your tokens and earn 5% in 30 seconds</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-chart-line fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Grow your money by staking tokens"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="stake-amount" class="form-label">
+                                        <strong>Amount to Stake</strong>
+                                    </label>
+                                    <input type="number" class="form-control" id="stake-amount" 
+                                           placeholder="0.00" min="0" step="0.01" style="border-radius: 10px;">
+                                </div>
+                                <button id="stake-tokens" class="btn btn-primary-custom" disabled>
+                                    <i class="fas fa-lock me-2"></i>Stake Tokens
+                                </button>
+                            </div>
+                            <div class="col-md-8">
+                                <div id="staking-info">
+                                    <h6><strong>Your Stakes:</strong></h6>
+                                    <div id="stakes-list" class="transaction-list">
+                                        <div class="text-muted text-center py-3">
+                                            No active stakes yet
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Microloan -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number">5</div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Get Microloan</h4>
+                                <small>Access instant loans based on your reputation</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-handshake fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Borrow money based on your activity and repayment history"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="credit-score-display" class="balance-display mb-3">
+                                    <div class="balance-amount" id="credit-score">0</div>
+                                    <small class="text-muted">Your Credit Score</small>
+                                </div>
+                                <div id="loan-eligibility" class="mb-3">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        Connect your wallet to check loan eligibility
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                                    <button id="request-loan" class="btn btn-primary-custom btn-lg mb-3" disabled>
+                                        <i class="fas fa-money-bill-wave me-2"></i>Request Loan
+                                    </button>
+                                    <div id="loan-info" style="display: none;">
+                                        <h6><strong>Active Loans:</strong></h6>
+                                        <div id="loans-list" class="transaction-list">
+                                            <div class="text-muted text-center py-3">
+                                                No active loans
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="step-card fade-in">
+                    <div class="step-header">
+                        <div class="d-flex align-items-center">
+                            <div class="step-number"><i class="fas fa-history"></i></div>
+                            <div class="ms-3">
+                                <h4 class="mb-0">Transaction History</h4>
+                                <small>View all your recent transactions</small>
+                            </div>
+                        </div>
+                        <i class="fas fa-list fa-2x help-icon" data-bs-toggle="tooltip" 
+                           title="Track all your financial activities"></i>
+                    </div>
+                    <div class="step-content">
+                        <div id="transaction-history" class="transaction-list">
+                            <div class="text-muted text-center py-3">
+                                No transactions yet
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h5 id="loading-text">Processing transaction...</h5>
+                    <p class="text-muted mb-0">Please wait while we process your request</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-question-circle me-2"></i>
+                        How to Use $INCL Finance
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="helpAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#help1">
+                                    What is a Web3 Wallet?
+                                </button>
+                            </h2>
+                            <div id="help1" class="accordion-collapse collapse show" 
+                                 data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    A Web3 wallet like MetaMask is your digital bank account that you control completely. 
+                                    No one else can access your funds - not even us! It's like having a bank in your phone 
+                                    that works worldwide.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#help2">
+                                    How Does Staking Work?
+                                </button>
+                            </h2>
+                            <div id="help2" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    Staking is like putting money in a savings account that pays interest. You lock your 
+                                    $INCL tokens for 30 seconds and earn 5% extra tokens as a reward. It's completely safe 
+                                    and automated.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#help3">
+                                    What is a Credit Score?
+                                </button>
+                            </h2>
+                            <div id="help3" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    Your credit score is calculated based on your wallet activity, token balance, and 
+                                    loan repayment history. Higher scores qualify you for larger loans with better terms.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#help4">
+                                    Is This Real Money?
+                                </button>
+                            </h2>
+                            <div id="help4" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    No! This is a demo using test tokens on a test network. Everything you see here is 
+                                    for learning and demonstration purposes only. No real money is involved.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        Got it!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+Web3 Financial Inclusion - The core focus on how blockchain technology is solving banking access problems
+Nigeria Cryptocurrency Adoption - Specific geographic focus on Nigeria's 38 million unbanked population
+DeFi for the Unbanked - How decentralized finance protocols serve excluded populations
+Blockchain Banking Solutions - Practical alternatives to traditional banking infrastructure
+African Fintech Innovation - The broader context of financial technology advancement across Africa
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    
+    <script>
+        // Contract addresses - UPDATE THESE AFTER DEPLOYMENT
+    const CONTRACTS = {
+    $INCL_TOKEN: '0x620FAD2693Ee00F401aD3707cb1E1D655B510AA0', // Deploy first
+    FAUCET: '0x30c28D61F81e0D97792912D6faEED06c6Dd90cfD', // Deploy second, needs token address
+    STAKING: '0xE6992283F8165DD835c06D7e56D5AE8931a5DB8b', // Deploy third, needs token address
+    MICROLOAN: '0xeEE8df8E36Ff9B07F39aBB4A16ec06F9b2A10Dcf' // Deploy fourth, needs token address
+};
+
+// Contract ABIs - Enhanced for repayment functionality
+const ABIS = {
+    ERC20: [
+        "function balanceOf(address) view returns (uint256)",
+        "function transfer(address to, uint256 amount) returns (bool)",
+        "function approve(address spender, uint256 amount) returns (bool)",
+        "function allowance(address owner, address spender) view returns (uint256)",
+        "event Transfer(address indexed from, address indexed to, uint256 value)"
+    ],
+    FAUCET: [
+        "function claimTokens()",
+        "function canClaim(address) view returns (bool)",
+        "function timeUntilNextClaim(address) view returns (uint256)",
+        "function getUserStats(address) view returns (uint256, uint256, uint256, bool)",
+        "event TokensClaimed(address indexed user, uint256 amount, uint256 timestamp)"
+    ],
+    STAKING: [
+        "function stake(uint256 amount)",
+        "function withdraw(uint256 stakeIndex)",
+        "function getUserActiveStakes(address) view returns (uint256[], uint256[], uint256[], bool[])",
+        "function getUserStake(address, uint256) view returns (uint256, uint256, uint256, uint256, bool, bool, uint256)",
+        "event Staked(address indexed user, uint256 amount, uint256 stakeIndex, uint256 timestamp)",
+        "event Withdrawn(address indexed user, uint256 stakeIndex, uint256 amount, uint256 reward)"
+    ],
+    MICROLOAN: [
+        "function requestLoan()",
+        "function repayLoan(uint256 loanIndex)",
+        "function isEligibleForLoan(address) view returns (bool, string)",
+        "function calculateCreditScore(address) view returns (uint256)",
+        "function calculateLoanAmount(address) view returns (uint256)",
+        "function getUserLoanSummary(address) view returns (uint256, uint256, uint256, uint256, uint256, bool, uint256)",
+        "function getUserLoan(address, uint256) view returns (uint256, uint256, uint256, uint256, bool, bool, uint256)",
+        "function getUserLoanCount(address) view returns (uint256)",
+        "event LoanIssued(address indexed borrower, uint256 amount, uint256 loanIndex, uint256 dueDate)",
+        "event LoanRepaid(address indexed borrower, uint256 loanIndex, uint256 amount)"
+    ]
+};
+
+// Global variables
+let provider, signer, userAddress;
+let contracts = {};
+let updateInterval;
+
+// Initialize app
+$(document).ready(function() {
+    initializeApp();
+    setupEventListeners();
+    enableTooltips();
+});
+
+function initializeApp() {
+    // Check if MetaMask is installed
+    if (typeof window.ethereum === 'undefined') {
+        showToast('MetaMask Required', 'Please install MetaMask to use this app', 'warning');
+        $('#connect-wallet').html('<i class="fas fa-download me-2"></i>Install MetaMask');
+        $('#connect-wallet').attr('onclick', 'window.open("https://metamask.io/download/", "_blank")');
+        return;
+    }
+
+    // Check if already connected
+    if (window.ethereum.selectedAddress) {
+        connectWallet();
+    }
+
+    // Listen for account changes
+    window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length > 0) {
+            connectWallet();
+        } else {
+            disconnectWallet();
+        }
+    });
+
+    // Listen for network changes
+    window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+    });
+}
+
+function setupEventListeners() {
+    $('#connect-wallet').click(connectWallet);
+    $('#claim-tokens').click(claimTokens);
+    $('#send-payment').click(sendPayment);
+    $('#stake-tokens').click(stakeTokens);
+    $('#request-loan').click(requestLoan);
+    
+    // Help icons
+    $('.help-icon').click(function() {
+        $('#helpModal').modal('show');
+    });
+
+    // Input validation
+    $('#send-amount, #stake-amount').on('input', validateInputs);
+    $('#recipient-address').on('input', validateInputs);
+}
+
+function enableTooltips() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
+
+async function connectWallet() {
+    try {
+        showLoading('Connecting to wallet...');
+        
+        // Request account access
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        // Initialize provider and signer
+        provider = new ethers.BrowserProvider(window.ethereum);
+        signer = await provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        // Initialize contracts
+        initializeContracts();
+
+        // Update UI
+        updateWalletStatus(true);
+        await updateBalances();
+        await updateUserData();
+
+        // Start periodic updates
+        startPeriodicUpdates();
+
+        hideLoading();
+        showToast('Success!', 'Wallet connected successfully', 'success');
+
+    } catch (error) {
+        hideLoading();
+        console.error('Error connecting wallet:', error);
+        showToast('Connection Failed', 'Failed to connect wallet: ' + error.message, 'error');
+    }
+}
+
+function initializeContracts() {
+    if (CONTRACTS.$INCL_TOKEN !== '0x...') {
+        contracts.token = new ethers.Contract(CONTRACTS.$INCL_TOKEN, ABIS.ERC20, signer);
+    }
+    if (CONTRACTS.FAUCET !== '0x...') {
+        contracts.faucet = new ethers.Contract(CONTRACTS.FAUCET, ABIS.FAUCET, signer);
+    }
+    if (CONTRACTS.STAKING !== '0x...') {
+        contracts.staking = new ethers.Contract(CONTRACTS.STAKING, ABIS.STAKING, signer);
+    }
+    if (CONTRACTS.MICROLOAN !== '0x...') {
+        contracts.microloan = new ethers.Contract(CONTRACTS.MICROLOAN, ABIS.MICROLOAN, signer);
+    }
+}
+
+function disconnectWallet() {
+    provider = null;
+    signer = null;
+    userAddress = null;
+    contracts = {};
+    
+    updateWalletStatus(false);
+    stopPeriodicUpdates();
+    
+    // Reset UI
+    $('#incl-balance').text('0.00 $INCL');
+    $('#credit-score').text('0');
+    resetButtonStates();
+}
+
+function updateWalletStatus(connected) {
+    if (connected) {
+        $('#connection-status')
+            .removeClass('status-disconnected')
+            .addClass('status-connected')
+            .html('<i class="fas fa-check-circle me-2"></i>Connected');
+        
+        $('#wallet-address').text(userAddress.substring(0, 6) + '...' + userAddress.substring(38));
+        $('#wallet-info').show();
+        $('#connect-wallet').html('<i class="fas fa-check me-2"></i>Connected').attr('disabled', true);
+        
+        // Enable other buttons
+        enableButtons();
+        
+    } else {
+        $('#connection-status')
+            .removeClass('status-connected')
+            .addClass('status-disconnected')
+            .html('<i class="fas fa-times-circle me-2"></i>Not Connected');
+        
+        $('#wallet-info').hide();
+        $('#connect-wallet').html('<i class="fas fa-plug me-2"></i>Connect Wallet').attr('disabled', false);
+        
+        // Disable other buttons
+        disableButtons();
+    }
+}
+
+function enableButtons() {
+    if (contracts.faucet) $('#claim-tokens').attr('disabled', false);
+    if (contracts.token) {
+        $('#send-payment').attr('disabled', false);
+        $('#stake-tokens').attr('disabled', false);
+    }
+    if (contracts.microloan) $('#request-loan').attr('disabled', false);
+}
+
+function disableButtons() {
+    $('#claim-tokens, #send-payment, #stake-tokens, #request-loan').attr('disabled', true);
+}
+
+function resetButtonStates() {
+    disableButtons();
+    $('#stakes-list').html('<div class="text-muted text-center py-3">No active stakes yet</div>');
+    $('#loans-list').html('<div class="text-muted text-center py-3">No active loans</div>');
+    $('#transaction-history').html('<div class="text-muted text-center py-3">No transactions yet</div>');
+    $('#loan-info').hide();
+}
+
+async function updateBalances() {
+    if (!contracts.token || !userAddress) return;
+
+    try {
+        const balance = await contracts.token.balanceOf(userAddress);
+        const formattedBalance = ethers.formatEther(balance);
+        $('#incl-balance').text(parseFloat(formattedBalance).toFixed(2) + ' $INCL');
+    } catch (error) {
+        console.error('Error updating balance:', error);
+    }
+}
+
+async function updateUserData() {
+    await updateFaucetStatus();
+    await updateStakingData();
+    await updateLoanData();
+}
+
+async function updateFaucetStatus() {
+    if (!contracts.faucet || !userAddress) return;
+
+    try {
+        const canClaim = await contracts.faucet.canClaim(userAddress);
+        
+        if (canClaim) {
+            $('#claim-tokens').attr('disabled', false).html('<i class="fas fa-gift me-2"></i>Claim Tokens');
+            $('#faucet-timer').hide();
+        } else {
+            $('#claim-tokens').attr('disabled', true).html('<i class="fas fa-clock me-2"></i>Cooldown Active');
+            
+            const timeLeftBN = await contracts.faucet.timeUntilNextClaim(userAddress);
+            const timeLeft = Number(timeLeftBN);
+            if (timeLeft > 0) {
+                startCountdown(timeLeft);
+            }
+        }
+    } catch (error) {
+        console.error('Error updating faucet status:', error);
+    }
+}
+
+function startCountdown(timeLeft) {
+    $('#faucet-timer').show();
+    
+    const endTime = Date.now() + (timeLeft * 1000);
+    
+    const countdownInterval = setInterval(() => {
+        const now = Date.now();
+        const remaining = Math.max(0, endTime - now);
+        
+        if (remaining === 0) {
+            clearInterval(countdownInterval);
+            $('#faucet-timer').hide();
+            $('#claim-tokens').attr('disabled', false).html('<i class="fas fa-gift me-2"></i>Claim Tokens');
+            return;
+        }
+        
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        $('#countdown-timer').text(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+    }, 1000);
+}
+
+async function updateStakingData() {
+    if (!contracts.staking || !userAddress) return;
+
+    try {
+        const [stakeIndexes, amounts, timestamps, canWithdrawList] = 
+            await contracts.staking.getUserActiveStakes(userAddress);
+        
+        if (stakeIndexes.length === 0) {
+            $('#stakes-list').html('<div class="text-muted text-center py-3">No active stakes yet</div>');
+            return;
+        }
+
+        let stakesHtml = '';
+        for (let i = 0; i < stakeIndexes.length; i++) {
+            const amount = ethers.formatEther(amounts[i]);
+            const canWithdraw = canWithdrawList[i];
+            const stakeIndex = stakeIndexes[i].toString();
+            
+            stakesHtml += `
+                <div class="transaction-item">
+                    <div>
+                        <strong>${parseFloat(amount).toFixed(2)} $INCL</strong>
+                        <br>
+                        <small class="text-muted">Stake #${stakeIndex}</small>
+                    </div>
+                    <div>
+                        ${canWithdraw ? 
+                            `<button class="btn btn-success btn-sm" onclick="withdrawStake(${stakeIndex})">
+                                <i class="fas fa-unlock me-1"></i>Withdraw + 5%
+                            </button>` :
+                            `<span class="badge bg-warning">
+                                <i class="fas fa-clock me-1"></i>Staking...
+                            </span>`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+        
+        $('#stakes-list').html(stakesHtml);
+    } catch (error) {
+        console.error('Error updating staking data:', error);
+    }
+}
+
+async function updateLoanData() {
+    if (!contracts.microloan || !userAddress) return;
+
+    try {
+        // Update credit score
+        const creditScore = await contracts.microloan.calculateCreditScore(userAddress);
+        $('#credit-score').text(creditScore.toString());
+
+        // Check loan eligibility
+        const [eligible, reason] = await contracts.microloan.isEligibleForLoan(userAddress);
+        
+        if (eligible) {
+            const loanAmount = await contracts.microloan.calculateLoanAmount(userAddress);
+            const formattedAmount = ethers.formatEther(loanAmount);
+            
+            $('#loan-eligibility').html(`
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    You qualify for a loan of <strong>${parseFloat(formattedAmount).toFixed(2)} $INCL</strong>
+                </div>
+            `);
+            $('#request-loan').attr('disabled', false);
+        } else {
+            $('#loan-eligibility').html(`
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    ${reason}
+                </div>
+            `);
+            $('#request-loan').attr('disabled', true);
+        }
+
+        // Update loan list - ENHANCED WITH REPAYMENT
+        await loadActiveLoans();
+
+    } catch (error) {
+        console.error('Error updating loan data:', error);
+    }
+}
+
+// NEW FUNCTION: Load and display active loans with repayment options
+async function loadActiveLoans() {
+    try {
+        const summary = await contracts.microloan.getUserLoanSummary(userAddress);
+        const activeLoans = summary[2]; // activeLoans count
+        const totalLoans = summary[1]; // total loans count
+        
+        if (activeLoans > 0) {
+            $('#loan-info').show();
+            
+            let loansHtml = '';
+            
+            // Load details for each loan
+            for (let i = 0; i < totalLoans; i++) {
+                const loanDetails = await contracts.microloan.getUserLoan(userAddress, i);
+                const [amount, interestAmount, timestamp, dueDate, repaid, defaulted, timeLeft] = loanDetails;
+                
+                // Only show active loans (not repaid or defaulted)
+                if (!repaid && !defaulted) {
+                    const loanAmount = ethers.formatEther(amount);
+                    const interest = ethers.formatEther(interestAmount);
+                    const totalRepayment = parseFloat(loanAmount) + parseFloat(interest);
+                    const isOverdue = Number(timeLeft) === 0 && !repaid;
+                    
+                    loansHtml += `
+                        <div class="transaction-item ${isOverdue ? 'border-danger' : ''}">
+                            <div>
+                                <strong>Loan #${i}</strong>
+                                <br>
+                                <small class="text-muted">
+                                    Borrowed: ${parseFloat(loanAmount).toFixed(2)} $INCL<br>
+                                    Interest (5%): ${parseFloat(interest).toFixed(2)} $INCL<br>
+                                    <strong>Total Due: ${totalRepayment.toFixed(2)} $INCL</strong><br>
+                                    ${isOverdue ? 
+                                        '<span class="text-danger">⚠️ OVERDUE</span>' : 
+                                        Number(timeLeft) > 0 ? 
+                                            `Due in: ${Math.floor(Number(timeLeft) / 60)}m ${Number(timeLeft) % 60}s` : 
+                                            'Due now'
+                                    }
+                                </small>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning btn-sm mx-3" onclick="repayLoan(${i})">
+                                    <i class="fas fa-money-bill me-1"></i>Repay ${totalRepayment.toFixed(2)} $INCL
+                                </button>
+                                ${isOverdue ? '<br><span class="badge bg-danger mt-1">Overdue</span>' : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            if (loansHtml === '') {
+                $('#loans-list').html('<div class="text-muted text-center py-3">No active loans</div>');
+                $('#loan-info').hide();
+            } else {
+                $('#loans-list').html(loansHtml);
+            }
+            
+        } else {
+            $('#loans-list').html('<div class="text-muted text-center py-3">No active loans</div>');
+            $('#loan-info').hide();
+        }
+        
+    } catch (error) {
+        console.error('Error loading active loans:', error);
+        $('#loans-list').html('<div class="text-muted text-center py-3">Error loading loans</div>');
+    }
+}
+
+// NEW FUNCTION: Repay a loan
+async function repayLoan(loanIndex) {
+    try {
+        showLoading('Preparing loan repayment...');
+        
+        // Get loan details first
+        const loanDetails = await contracts.microloan.getUserLoan(userAddress, loanIndex);
+        const [amount, interestAmount] = loanDetails;
+        const totalRepayment = amount + interestAmount;
+        
+        // Check if user has enough balance
+        const balance = await contracts.token.balanceOf(userAddress);
+        if (balance < totalRepayment) {
+            hideLoading();
+            const needed = ethers.formatEther(totalRepayment);
+            const current = ethers.formatEther(balance);
+            showToast(
+                'Insufficient Balance', 
+                `Need ${parseFloat(needed).toFixed(2)} $INCL, have ${parseFloat(current).toFixed(2)} $INCL`, 
+                'error'
+            );
+            return;
+        }
+        
+        // Check allowance for loan contract
+        const allowance = await contracts.token.allowance(userAddress, CONTRACTS.MICROLOAN);
+        if (allowance < totalRepayment) {
+            showLoading('Approving repayment amount...');
+            const approveTx = await contracts.token.approve(CONTRACTS.MICROLOAN, totalRepayment);
+            await approveTx.wait();
+        }
+        
+        showLoading('Repaying loan...');
+        const tx = await contracts.microloan.repayLoan(loanIndex);
+        
+        showLoading('Waiting for confirmation...');
+        const receipt = await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Loan repaid successfully! Your credit score has improved.', 'success');
+        
+        // Update UI
+        await updateBalances();
+        await updateLoanData();
+        const repaymentAmount = ethers.formatEther(totalRepayment);
+        addTransactionToHistory('Loan Repaid', `${parseFloat(repaymentAmount).toFixed(2)} $INCL`, 'success');
+        
+        console.log('Loan repayment successful:', receipt.hash);
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error repaying loan:', error);
+        
+        let errorMessage = error.message;
+        if (error.reason) {
+            errorMessage = error.reason;
+        } else if (error.data?.message) {
+            errorMessage = error.data.message;
+        }
+        
+        showToast('Repayment Failed', errorMessage, 'error');
+    }
+}
+
+async function claimTokens() {
+    if (!contracts.faucet) {
+        showToast('Error', 'Faucet contract not available', 'error');
+        return;
+    }
+
+    try {
+        showLoading('Claiming tokens...');
+        
+        const tx = await contracts.faucet.claimTokens();
+        
+        showLoading('Waiting for confirmation...');
+        await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Tokens claimed successfully!', 'success');
+        
+        // Update UI
+        await updateBalances();
+        await updateFaucetStatus();
+        addTransactionToHistory('Faucet Claim', '100 $INCL', 'success');
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error claiming tokens:', error);
+        showToast('Transaction Failed', error.message, 'error');
+    }
+}
+
+async function sendPayment() {
+    const recipient = $('#recipient-address').val().trim();
+    const amount = $('#send-amount').val();
+
+    if (!recipient || !amount || parseFloat(amount) <= 0) {
+        showToast('Invalid Input', 'Please enter valid recipient and amount', 'warning');
+        return;
+    }
+
+    if (!ethers.isAddress(recipient)) {
+        showToast('Invalid Address', 'Please enter a valid wallet address', 'error');
+        return;
+    }
+
+    try {
+        showLoading('Sending payment...');
+        
+        const amountWei = ethers.parseEther(amount);
+        const tx = await contracts.token.transfer(recipient, amountWei);
+        
+        showLoading('Waiting for confirmation...');
+        await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Payment sent successfully!', 'success');
+        
+        // Clear form and update UI
+        $('#recipient-address').val('');
+        $('#send-amount').val('');
+        await updateBalances();
+        addTransactionToHistory('Payment Sent', `${amount} $INCL`, 'sent');
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error sending payment:', error);
+        showToast('Transaction Failed', error.message, 'error');
+    }
+}
+
+async function stakeTokens() {
+    const amount = $('#stake-amount').val();
+
+    if (!amount || parseFloat(amount) <= 0) {
+        showToast('Invalid Amount', 'Please enter a valid stake amount', 'warning');
+        return;
+    }
+
+    try {
+        showLoading('Preparing stake...');
+        
+        const amountWei = ethers.parseEther(amount);
+        
+        // Check allowance
+        const allowance = await contracts.token.allowance(userAddress, CONTRACTS.STAKING);
+        if (allowance < amountWei) {
+            showLoading('Approving tokens...');
+            const approveTx = await contracts.token.approve(CONTRACTS.STAKING, amountWei);
+            await approveTx.wait();
+        }
+        
+        showLoading('Staking tokens...');
+        const tx = await contracts.staking.stake(amountWei);
+        
+        showLoading('Waiting for confirmation...');
+        await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Tokens staked successfully!', 'success');
+        
+        // Clear form and update UI
+        $('#stake-amount').val('');
+        await updateBalances();
+        await updateStakingData();
+        addTransactionToHistory('Stake', `${amount} $INCL`, 'stake');
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error staking tokens:', error);
+        showToast('Transaction Failed', error.message, 'error');
+    }
+}
+
+async function withdrawStake(stakeIndex) {
+    try {
+        showLoading('Withdrawing stake...');
+        
+        const tx = await contracts.staking.withdraw(stakeIndex);
+        
+        showLoading('Waiting for confirmation...');
+        await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Stake withdrawn with 5% reward!', 'success');
+        
+        // Update UI
+        await updateBalances();
+        await updateStakingData();
+        addTransactionToHistory('Stake Withdrawal', 'With 5% reward', 'success');
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error withdrawing stake:', error);
+        showToast('Transaction Failed', error.message, 'error');
+    }
+}
+
+async function requestLoan() {
+    try {
+        showLoading('Requesting loan...');
+        
+        const tx = await contracts.microloan.requestLoan();
+        
+        showLoading('Waiting for confirmation...');
+        await tx.wait();
+        
+        hideLoading();
+        showToast('Success!', 'Loan approved and transferred!', 'success');
+        
+        // Update UI
+        await updateBalances();
+        await updateLoanData();
+        addTransactionToHistory('Loan Received', 'Microloan approved', 'success');
+        
+    } catch (error) {
+        hideLoading();
+        console.error('Error requesting loan:', error);
+        showToast('Transaction Failed', error.message, 'error');
+    }
+}
+
+function validateInputs() {
+    const sendAmount = parseFloat($('#send-amount').val()) || 0;
+    const stakeAmount = parseFloat($('#stake-amount').val()) || 0;
+    const recipient = $('#recipient-address').val().trim();
+
+    // Enable/disable send button
+    if (sendAmount > 0 && recipient && ethers.isAddress(recipient)) {
+        $('#send-payment').attr('disabled', false);
+    } else {
+        $('#send-payment').attr('disabled', true);
+    }
+
+    // Enable/disable stake button
+    if (stakeAmount > 0) {
+        $('#stake-tokens').attr('disabled', false);
+    } else {
+        $('#stake-tokens').attr('disabled', true);
+    }
+}
+
+function addTransactionToHistory(type, details, status) {
+    const timestamp = new Date().toLocaleTimeString();
+    const iconClass = {
+        'success': 'fas fa-check-circle text-success',
+        'sent': 'fas fa-arrow-right text-primary',
+        'stake': 'fas fa-lock text-warning',
+        'error': 'fas fa-times-circle text-danger'
+    };
+
+    const html = `
+        <div class="transaction-item">
+            <div>
+                <i class="${iconClass[status]} me-2"></i>
+                <strong>${type}</strong>
+                <br>
+                <small class="text-muted">${details} at ${timestamp}</small>
+            </div>
+            <div>
+                <span class="badge bg-${status === 'error' ? 'danger' : 'success'}">
+                    ${status === 'error' ? 'Failed' : 'Success'}
+                </span>
+            </div>
+        </div>
+    `;
+
+    if ($('#transaction-history').find('.text-muted').length > 0) {
+        $('#transaction-history').html(html);
+    } else {
+        $('#transaction-history').prepend(html);
+    }
+}
+
+function startPeriodicUpdates() {
+    // Update every 30 seconds
+    updateInterval = setInterval(async () => {
+        await updateBalances();
+        await updateUserData();
+    }, 30000);
+}
+
+function stopPeriodicUpdates() {
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+}
+
+function showLoading(text = 'Loading...') {
+    $('#loading-text').text(text);
+    $('#loadingModal').modal('show');
+}
+
+function hideLoading() {
+    $('#loadingModal').modal('hide');
+}
+
+function showToast(title, message, type = 'info') {
+    const toastId = 'toast-' + Date.now();
+    const bgClass = {
+        'success': 'bg-success',
+        'error': 'bg-danger',
+        'warning': 'bg-warning',
+        'info': 'bg-info'
+    };
+
+    const iconClass = {
+        'success': 'fas fa-check-circle',
+        'error': 'fas fa-exclamation-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+
+    const toastHtml = `
+        <div id="${toastId}" class="toast align-items-center text-white ${bgClass[type]} border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="${iconClass[type]} me-2"></i>
+                    <strong>${title}</strong><br>
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    `;
+
+    $('.toast-container').append(toastHtml);
+    const toast = new bootstrap.Toast(document.getElementById(toastId));
+    toast.show();
+
+    // Remove toast element after it's hidden
+    document.getElementById(toastId).addEventListener('hidden.bs.toast', function () {
+        this.remove();
+    });
+}
+
+// Contract deployment status check
+function checkContractDeployment() {
+    const deployedContracts = Object.values(CONTRACTS).filter(addr => addr !== '0x...');
+    
+    if (deployedContracts.length === 0) {
+        showToast(
+            'Contracts Not Deployed', 
+            'Please deploy the smart contracts first. Check README_DEPLOY.md for instructions.', 
+            'warning'
+        );
+    } else {
+        console.log('✅ All contracts deployed successfully!');
+        showToast('System Ready', 'All contracts loaded successfully!', 'success');
+    }
+}
+
+// Check contract deployment on load
+setTimeout(checkContractDeployment, 2000);
+    </script>
+</body>
+</html>
