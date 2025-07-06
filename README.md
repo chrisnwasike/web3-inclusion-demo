@@ -11,28 +11,6 @@
 
 INCL Finance demonstrates how Web3 technology can provide inclusive financial services to Nigeria's 200+ million population, where 60% remain unbanked. This platform showcases instant loans, yield generation, and cross-border payments - all without traditional banking infrastructure.
 
-## 📱 **Live Demo**
-
-🔗 **[Try INCL Finance Demo](your-demo-url-here)**
-
-*Connect MetaMask to Sepolia testnet and experience the future of financial inclusion*
-
-## ✨ **What This Demo Shows**
-
-### 🎯 **Core Features**
-- **🪙 Token Faucet** - Claim 100 INCL tokens every hour
-- **💸 Instant Payments** - Send money to any wallet address globally  
-- **📈 Yield Generation** - Earn 5% by staking tokens for 30 seconds
-- **💰 Microloans** - Get instant loans based on on-chain reputation
-- **🔄 Loan Repayment** - Build credit by repaying loans on time
-- **📊 Credit Scoring** - Reputation system based on blockchain activity
-
-### 🌟 **User Journey**
-1. **Connect Wallet** → MetaMask integration
-2. **Claim Tokens** → Get free INCL from faucet
-3. **Build Activity** → Send payments, stake tokens
-4. **Request Loan** → Instant approval based on credit score
-5. **Repay Loan** → Build reputation for larger future loans
 
 ## 🏗️ **Architecture**
 
@@ -224,32 +202,9 @@ SEPOLIA_RPC_URL=https://rpc.sepolia.org
 ETHERSCAN_API_KEY=your_api_key
 ```
 
-## 📈 **Roadmap**
-
-### **Phase 1: Demo (Current)**
-- [x] Basic token functionality
-- [x] Faucet with rate limiting
-- [x] Simple staking mechanism
-- [x] Reputation-based microloans
-- [x] Complete loan repayment system
-
-### **Phase 2: Enhancement (Next)**
-- [ ] Mobile app (React Native)
-- [ ] Multi-language support (Yoruba, Hausa, Igbo)
-- [ ] SMS integration for notifications
-- [ ] Advanced analytics dashboard
-- [ ] Governance token (DAO voting)
-
-### **Phase 3: Production (Future)**
-- [ ] Security audit by reputable firm
-- [ ] Mainnet deployment
-- [ ] Fiat on/off ramps
-- [ ] Partnership with local banks
-- [ ] Regulatory compliance features
-
 ## 🤝 **Contributing**
 
-We welcome contributions from developers passionate about financial inclusion!
+I welcome contributions from developers passionate about financial inclusion!
 
 ### **How to Contribute**
 1. Fork the repository
@@ -282,10 +237,8 @@ We welcome contributions from developers passionate about financial inclusion!
 ## 📞 **Support & Community**
 
 ### **Get Help**
-- 📧 **Email**: support@inclfinance.demo
-- 💬 **Discord**: [Join our community](https://discord.gg/inclfinance)
-- 🐦 **Twitter**: [@INCLFinance](https://twitter.com/inclfinance)
-- 📖 **Docs**: [Technical Documentation](https://docs.inclfinance.demo)
+- 📧 **Email**: chrisnwasike@gmail.com
+- 🐦 **Twitter**: [@INCLFinance](https://twitter.com/chrisnwasike)
 
 ### **Report Issues**
 Found a bug? [Create an issue](https://github.com/your-username/incl-finance-demo/issues)
@@ -316,24 +269,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎯 **Demo Objectives Achieved**
 
-✅ **Technical Excellence** - Production-ready smart contracts  
 ✅ **User Experience** - Intuitive interface for non-crypto users  
 ✅ **Financial Innovation** - Novel reputation-based lending  
 ✅ **Social Impact** - Addresses real financial exclusion  
 ✅ **Scalable Architecture** - Ready for millions of users  
 ✅ **Educational Value** - Demonstrates Web3 potential  
 
----
-
-## 🚀 **Ready to Change Finance?**
-
-**[🎮 Try the Demo](your-demo-url-here)** | **[📖 Read the Docs](docs-url)** | **[💬 Join Community](discord-url)**
-
-*Built with ❤️ for financial inclusion in Nigeria and beyond*
-
----
-
-<div align="center">
 
 **⭐ Star this repo if you believe in democratizing finance through technology! ⭐**
 
