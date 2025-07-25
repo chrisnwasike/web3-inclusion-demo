@@ -260,19 +260,16 @@ I welcome contributions from developers passionate about financial inclusion!
 
 ### **Get Help**
 - 📧 **Email**: chrisnwasike@gmail.com
-- 🐦 **Twitter**: [@INCLFinance](https://twitter.com/chrisnwasike)
+- 🐦 **Twitter**: [@ChrisDBuilder](https://twitter.com/chrisnwasike)
 
-### **Report Issues**
-Found a bug? [Create an issue](https://github.com/your-username/incl-finance-demo/issues)
+### **Read Article**
+Read the full article [Read on LinkedIn](https://www.linkedin.com/pulse/beyond-traditional-banking-web3s-quiet-revolution-nigerian-nwasike-wd0rf/?trackingId=qTI17ex3BcRsh7ZHvKpZ0w%3D%3D)
 
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 **Acknowledgments**
 
-- **OpenZeppelin** - Secure smart contract libraries
 - **Ethereum Foundation** - Blockchain infrastructure
+- **OpenZeppelin** - Secure smart contract libraries
 - **MetaMask** - Web3 wallet integration
 - **Bootstrap** - Frontend UI framework
 - **Nigerian Tech Community** - Inspiration and feedback
@@ -301,7 +298,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🚀 **Ready to Change Finance?**
 
-**[🎮 Try the Demo](your-demo-url-here)** 
+**[🎮 Try the Demo](https://chrisnwasike.github.io/web3-inclusion-demo/)** 
 
 *Built with ❤️ for financial inclusion in Nigeria and beyond*
 
