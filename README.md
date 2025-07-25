@@ -69,8 +69,8 @@ backend/
 
 ### **1. Clone Repository**
 ```bash
-git clone https://github.com/your-username/incl-finance-demo.git
-cd incl-finance-demo
+git clone https://github.com/chrisnwasike/web3-inclusion-demo.git
+cd web3-inclusion-demo
 ```
 
 ### **2. Deploy Contracts (Remix)**
@@ -258,7 +258,8 @@ I welcome contributions from developers passionate about financial inclusion!
 
 ## 📞 **Support & Community**
 
-### **Get Help**
+### **Contact**
+- 🔗 **Website**:  [ChrisDBuilder.eth.limo](https://chrisdbuilder.eth.limo)
 - 📧 **Email**: chrisnwasike@gmail.com
 - 🐦 **Twitter**: [@ChrisDBuilder](https://twitter.com/chrisnwasike)
 
