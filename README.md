@@ -13,7 +13,7 @@ INCL Finance demonstrates how Web3 technology can provide inclusive financial se
 
 ## 📱 **Live Demo**
 
-🔗 **[Try INCL Finance Demo](your-demo-url-here)**
+🔗 **[Try INCL Finance Demo](https://chrisnwasike.github.io/web3-inclusion-demo/)**
 
 *Connect MetaMask to Sepolia testnet and experience the future of financial inclusion*
 
