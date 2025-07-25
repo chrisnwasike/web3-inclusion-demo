@@ -1154,9 +1154,8 @@ async function sendPayment() {
             return;
         }
 
-
+        showLoading('Approving tokens...');
         const tx = await contracts.token.transfer(recipient, amountWei);
-        
         showLoading('Waiting for confirmation...');
         await tx.wait();
         
