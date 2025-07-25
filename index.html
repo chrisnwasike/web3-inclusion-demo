@@ -1136,6 +1136,23 @@ async function sendPayment() {
         showLoading('Sending payment...');
         
         const amountWei = ethers.parseEther(amount);
+
+        // Check allowance
+        try {
+            const allowance = await contracts.token.allowance(userAddress, CONTRACTS.STAKING);
+            if (allowance < amountWei) {
+                showLoading('Approving tokens...');
+                const approveTx = await contracts.token.approve(CONTRACTS.STAKING, amountWei);
+                await approveTx.wait();
+            }
+        } catch (allowanceError) {
+            console.error('Error checking allowance:', allowanceError);
+            hideLoading();
+            showToast('Allowance Error', 'Failed to check token allowance: ' + allowanceError.message, 'error');
+            return;
+        }
+
+        
         const tx = await contracts.token.transfer(recipient, amountWei);
         
         showLoading('Waiting for confirmation...');
