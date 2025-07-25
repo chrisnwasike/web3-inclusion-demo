@@ -16,17 +16,6 @@ const NETWORKS = {
             decimals: 18
         }
     },
-    baseSepolia: {
-        chainId: '0x14a34', // 84532 in hex
-        chainName: 'Base Sepolia',
-        rpcUrls: ['https://sepolia.base.org'],
-        blockExplorerUrls: ['https://sepolia.basescan.org'],
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        }
-    },
     mumbai: {
         chainId: '0x13881', // 80001 in hex
         chainName: 'Mumbai Testnet',
@@ -45,12 +34,6 @@ const DEFAULT_NETWORK = 'sepolia';
 
 // Contract addresses - UPDATE THESE AFTER DEPLOYMENT
 const CONTRACT_ADDRESSES = {
-    baseSepolia: {
-        INCL_TOKEN: '0xDf6CF393AD1499526dB43F334d108949f1b5A0A1', // Deploy first
-        FAUCET: '0xCCb8dBE9F1ACFDC31C7C353c8fcfd6163a0e2376', // Deploy second, needs token address
-        STAKING: '0xB370EF91F61dbb560a03B8E15772Bec0EF6FD0Ed', // Deploy third, needs token address
-        MICROLOAN: '0x0b5de94E22e53bb58328B8712ef9cAF9E581fF58' // Deploy fourth, needs token address
-    },
     sepolia: {
         INCL_TOKEN: '0x...',
         FAUCET: '0x...',

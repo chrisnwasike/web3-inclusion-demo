@@ -586,10 +586,10 @@ African Fintech Innovation - The broader context of financial technology advance
     <script>
         // Contract addresses - UPDATE THESE AFTER DEPLOYMENT
     const CONTRACTS = {
-    $INCL_TOKEN: '0x620FAD2693Ee00F401aD3707cb1E1D655B510AA0', // Deploy first
-    FAUCET: '0x30c28D61F81e0D97792912D6faEED06c6Dd90cfD', // Deploy second, needs token address
-    STAKING: '0xE6992283F8165DD835c06D7e56D5AE8931a5DB8b', // Deploy third, needs token address
-    MICROLOAN: '0xeEE8df8E36Ff9B07F39aBB4A16ec06F9b2A10Dcf' // Deploy fourth, needs token address
+    $INCL_TOKEN: '0x734468466289102d37aF7E6147c859A2aAAA304E', // Deploy first
+    FAUCET: '0x05415Bf7d081b0DDA3fC057A0A9163Ee1fE31Dd3', // Deploy second, needs token address
+    STAKING: '0x757aee40c5886ed7c00390fa2d16103bac16319b', // Deploy third, needs token address
+    MICROLOAN: '0xa62ed4d422ae3640dddf245439a75d03932247b0' // Deploy fourth, needs token address
 };
 
 // Contract ABIs - Enhanced for repayment functionality
@@ -729,16 +729,16 @@ async function connectWallet() {
 }
 
 function initializeContracts() {
-    if (CONTRACTS.$INCL_TOKEN !== '0x...') {
+    if (CONTRACTS.$INCL_TOKEN !== '') {
         contracts.token = new ethers.Contract(CONTRACTS.$INCL_TOKEN, ABIS.ERC20, signer);
     }
-    if (CONTRACTS.FAUCET !== '0x...') {
+    if (CONTRACTS.FAUCET !== '') {
         contracts.faucet = new ethers.Contract(CONTRACTS.FAUCET, ABIS.FAUCET, signer);
     }
-    if (CONTRACTS.STAKING !== '0x...') {
+    if (CONTRACTS.STAKING !== '') {
         contracts.staking = new ethers.Contract(CONTRACTS.STAKING, ABIS.STAKING, signer);
     }
-    if (CONTRACTS.MICROLOAN !== '0x...') {
+    if (CONTRACTS.MICROLOAN !== '') {
         contracts.microloan = new ethers.Contract(CONTRACTS.MICROLOAN, ABIS.MICROLOAN, signer);
     }
 }
